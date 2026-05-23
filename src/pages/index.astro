@@ -1,0 +1,94 @@
+---
+const name = "Bobby Tumpak";
+const description = "Bobby Tumpak — product leader from Brooklyn, NY.";
+const url = "https://tumpak.com";
+
+const sameAs = [
+  // TODO: fill in real profile URLs before launch
+  // "https://www.linkedin.com/in/bobbytumpak",
+  // "https://github.com/BKBobbyDigital",
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name,
+  url,
+  jobTitle: "Product Leader",
+  homeLocation: {
+    "@type": "Place",
+    name: "Brooklyn, New York",
+  },
+  sameAs,
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{name}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={name} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <style>
+      :root {
+        color-scheme: light dark;
+        --fg: #111;
+        --muted: #555;
+        --bg: #fafafa;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #f0f0f0; --muted: #a0a0a0; --bg: #111; }
+      }
+      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+      body {
+        font: 18px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.25rem;
+      }
+      main { max-width: 36rem; }
+      h1 { font-size: 2.25rem; margin: 0 0 1rem; letter-spacing: -0.02em; }
+      p { margin: 0 0 1rem; }
+      .muted { color: var(--muted); }
+      ul.links { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+      ul.links a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>{name}</h1>
+      <p class="muted">Product leader. Brooklyn, NY.</p>
+
+      <p>
+        Hi — I’m Bobby Tumpak. I lead product teams, building software that
+        people actually use. I’m based in Brooklyn, New York.
+      </p>
+      <p>
+        TODO: replace this paragraph with 2–3 sentences of real narrative —
+        what you do, where you’ve worked, what you care about. The more
+        unique, specific text on this page, the better it ranks for your name.
+      </p>
+
+      <ul class="links">
+        <!-- TODO: add real links once profiles are confirmed -->
+        <li><a rel="me" href="https://www.linkedin.com/in/bobbytumpak">LinkedIn</a></li>
+        <li><a rel="me" href="https://github.com/BKBobbyDigital">GitHub</a></li>
+        <li><a href="mailto:hello@tumpak.com">Email</a></li>
+      </ul>
+    </main>
+  </body>
+</html>
