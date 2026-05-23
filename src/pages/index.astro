@@ -164,6 +164,76 @@ const jsonLd = {
       dl.stats dd a { text-decoration: underline; }
       dl.stats dd a:hover { background: var(--fg); color: var(--bg); text-decoration: none; }
 
+      .section { margin-top: 2rem; }
+      .section-head { margin-bottom: 1rem; }
+      .section-title {
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        font-size: 0.95rem;
+      }
+      .section-sub {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 0.1rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.85rem;
+      }
+      .tile {
+        display: flex;
+        gap: 0.85rem;
+        align-items: stretch;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 0.65rem;
+        background: var(--bg);
+        text-decoration: none;
+        color: var(--fg);
+        min-height: 110px;
+      }
+      .tile:hover { background: rgba(0,0,0,0.04); }
+      .tile.active {
+        border-width: 2px;
+        padding: calc(0.65rem - 1px);
+      }
+      .tile-thumb {
+        flex: 0 0 96px;
+        background: var(--invert-bg);
+        color: var(--invert-fg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: 0.05em;
+        border-radius: 4px;
+      }
+      .tile-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.15rem;
+        min-width: 0;
+      }
+      .tile-title {
+        font-weight: 700;
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tile-tag { font-weight: 400; }
+      .tile-meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       footer.bottom {
         margin-top: 2rem;
         padding-top: 1rem;
@@ -190,6 +260,9 @@ const jsonLd = {
         main.content { padding: 1.5rem 1.25rem 2.5rem; }
         main.content h1 { font-size: 1.4rem; }
         dl.stats { grid-template-columns: 5.5rem 1fr; }
+        .grid { grid-template-columns: 1fr; }
+        .tile-thumb { flex-basis: 72px; font-size: 1.3rem; }
+        .tile { min-height: 88px; }
       }
       @media (max-width: 420px) {
         dl.stats { grid-template-columns: 1fr; gap: 0.1rem 0; }
@@ -204,6 +277,7 @@ const jsonLd = {
         <nav class="side-nav" aria-label="Primary">
           <div class="nav-group-label">Site</div>
           <a href="#about" class="active">About</a>
+          <a href="#projects">Projects</a>
 
           <div class="nav-group-label">Elsewhere</div>
           <a href="https://www.linkedin.com/in/tumpak/" target="_blank" rel="me noopener">
@@ -211,9 +285,6 @@ const jsonLd = {
           </a>
           <a href="https://github.com/BKBobbyDigital" target="_blank" rel="me noopener">
             <span>GitHub</span><span class="arrow">↗</span>
-          </a>
-          <a href="mailto:hello@bobbytumpak.com">
-            <span>Email</span><span class="arrow">→</span>
           </a>
         </nav>
       </aside>
@@ -239,6 +310,42 @@ const jsonLd = {
             <dt>linkedin</dt> <dd><a href="https://www.linkedin.com/in/tumpak/">in/tumpak</a></dd>
             <dt>github</dt>   <dd><a href="https://github.com/BKBobbyDigital">@BKBobbyDigital</a></dd>
           </dl>
+        </section>
+
+        <section id="projects" class="section">
+          <div class="section-head">
+            <div class="section-title">PROJECTS</div>
+            <div class="section-sub">Things I'm working on / have worked on</div>
+          </div>
+
+          <div class="grid">
+            <a class="tile active" href="https://drfirst.com" target="_blank" rel="noopener">
+              <div class="tile-thumb">DR</div>
+              <div class="tile-body">
+                <div class="tile-title">DrFirst <span class="tile-tag">⌬</span></div>
+                <div class="tile-meta">@drfirst</div>
+                <div class="tile-meta">Healthcare technology</div>
+              </div>
+            </a>
+
+            <a class="tile" href="https://hotshit.xyz" target="_blank" rel="noopener">
+              <div class="tile-thumb">HS</div>
+              <div class="tile-body">
+                <div class="tile-title">HotShit <span class="tile-tag">♨</span></div>
+                <div class="tile-meta">@hotshit</div>
+                <div class="tile-meta">hotshit.xyz</div>
+              </div>
+            </a>
+
+            <a class="tile" href="https://qart-hadasht.org" target="_blank" rel="noopener">
+              <div class="tile-thumb">QH</div>
+              <div class="tile-body">
+                <div class="tile-title">Qart-Hadasht <span class="tile-tag">▲</span></div>
+                <div class="tile-meta">@qarthadasht</div>
+                <div class="tile-meta">qart-hadasht.org</div>
+              </div>
+            </a>
+          </div>
         </section>
 
         <footer class="bottom">
