@@ -13,6 +13,10 @@ const jsonLd = {
     "@type": "Place",
     name: "Brooklyn, New York",
   },
+  sameAs: [
+    "https://www.linkedin.com/in/tumpak/",
+    "https://github.com/BKBobbyDigital",
+  ],
 };
 ---
 <!doctype html>
@@ -60,51 +64,75 @@ const jsonLd = {
         min-height: 100vh;
       }
       a { color: var(--fg); text-underline-offset: 3px; }
-      a:hover { background: var(--fg); color: var(--bg); text-decoration: none; }
 
-      .page {
-        max-width: 760px;
+      .layout {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        min-height: 100vh;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 2rem 1.25rem 3rem;
       }
 
-      header.top {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 1rem;
-        border-bottom: 1px solid var(--line);
-        padding-bottom: 1rem;
-        margin-bottom: 1.5rem;
-        flex-wrap: wrap;
+      aside.side {
+        border-right: 1px solid var(--line);
+        padding: 1.5rem 0 2rem;
+        position: sticky;
+        top: 0;
+        align-self: start;
+        height: 100vh;
+        overflow-y: auto;
       }
       .brand {
         font-weight: 700;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         letter-spacing: 0.02em;
+        padding: 0 1.25rem 1.25rem;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 0.5rem;
       }
       .brand::before { content: "◍ "; }
-      .meta {
-        color: var(--muted);
-        font-size: 0.85rem;
-      }
 
-      nav.tabs {
+      nav.side-nav { display: flex; flex-direction: column; }
+      .nav-group-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        padding: 1rem 1.25rem 0.4rem;
+      }
+      nav.side-nav a {
         display: flex;
-        gap: 0.25rem;
-        flex-wrap: wrap;
-        margin-bottom: 1.5rem;
-      }
-      nav.tabs a {
-        padding: 0.35rem 0.85rem;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.55rem 1.25rem;
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        border-left: 3px solid transparent;
       }
-      nav.tabs a.active {
+      nav.side-nav a:hover { background: rgba(0,0,0,0.05); }
+      nav.side-nav a.active {
         background: var(--invert-bg);
         color: var(--invert-fg);
+        font-weight: 500;
+      }
+      nav.side-nav a .arrow { color: var(--muted); font-size: 0.8rem; }
+      nav.side-nav a.active .arrow { color: var(--invert-fg); }
+
+      main.content {
+        padding: 2rem 2rem 3rem;
+        min-width: 0;
+      }
+
+      main.content h1 {
+        margin: 0 0 0.25rem;
+        font-size: 1.75rem;
+        letter-spacing: -0.01em;
+      }
+      .subtitle {
+        color: var(--muted);
+        margin: 0 0 1.5rem;
+        font-size: 0.95rem;
       }
 
       .card {
@@ -114,24 +142,27 @@ const jsonLd = {
         margin-bottom: 1.25rem;
         background: var(--bg);
       }
-      .card h1, .card h2 {
+      .card h2 {
         margin: 0 0 0.75rem;
-        font-size: 1.5rem;
-        letter-spacing: -0.01em;
+        font-size: 1rem;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        font-weight: 700;
       }
-      .card h2 { font-size: 1.05rem; }
       .card p { margin: 0 0 0.75rem; }
       .card p:last-child { margin-bottom: 0; }
 
       dl.stats {
         display: grid;
-        grid-template-columns: max-content 1fr;
+        grid-template-columns: 7rem 1fr;
         gap: 0.4rem 1rem;
         margin: 0;
         font-size: 0.95rem;
       }
       dl.stats dt { color: var(--muted); }
       dl.stats dd { margin: 0; }
+      dl.stats dd a { text-decoration: underline; }
+      dl.stats dd a:hover { background: var(--fg); color: var(--bg); text-decoration: none; }
 
       footer.bottom {
         margin-top: 2rem;
@@ -144,52 +175,77 @@ const jsonLd = {
         color: var(--muted);
         font-size: 0.8rem;
       }
-      footer.bottom a { color: var(--muted); }
 
-      @media (max-width: 520px) {
-        body { font-size: 14px; }
-        .page { padding: 1.25rem 1rem 2rem; }
-        .card h1 { font-size: 1.25rem; }
+      @media (max-width: 720px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        aside.side {
+          position: static;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+          padding-bottom: 0.5rem;
+        }
+        main.content { padding: 1.5rem 1.25rem 2.5rem; }
+        main.content h1 { font-size: 1.4rem; }
+        dl.stats { grid-template-columns: 5.5rem 1fr; }
+      }
+      @media (max-width: 420px) {
         dl.stats { grid-template-columns: 1fr; gap: 0.1rem 0; }
         dl.stats dt { margin-top: 0.5rem; }
       }
     </style>
   </head>
   <body>
-    <div class="page">
-      <header class="top">
+    <div class="layout">
+      <aside class="side">
         <div class="brand">Bobby Tumpak</div>
-        <div class="meta">Brooklyn, NY</div>
-      </header>
+        <nav class="side-nav" aria-label="Primary">
+          <div class="nav-group-label">Site</div>
+          <a href="#about" class="active">About</a>
 
-      <nav class="tabs" aria-label="Sections">
-        <a href="#about" class="active">About</a>
-        <a href="#links">Links</a>
-      </nav>
+          <div class="nav-group-label">Elsewhere</div>
+          <a href="https://www.linkedin.com/in/tumpak/" target="_blank" rel="me noopener">
+            <span>LinkedIn</span><span class="arrow">↗</span>
+          </a>
+          <a href="https://github.com/BKBobbyDigital" target="_blank" rel="me noopener">
+            <span>GitHub</span><span class="arrow">↗</span>
+          </a>
+          <a href="mailto:hello@bobbytumpak.com">
+            <span>Email</span><span class="arrow">→</span>
+          </a>
+        </nav>
+      </aside>
 
-      <section id="about" class="card">
+      <main class="content">
         <h1>Bobby Tumpak</h1>
-        <p>Product leader. Based in Brooklyn, New York.</p>
-        <dl class="stats">
-          <dt>name</dt>     <dd>Bobby Tumpak</dd>
-          <dt>location</dt> <dd>Brooklyn, NY</dd>
-          <dt>role</dt>     <dd>Product</dd>
-          <dt>status</dt>   <dd>[online]</dd>
-        </dl>
-      </section>
+        <p class="subtitle">Product leader · Brooklyn, NY</p>
 
-      <section id="links" class="card">
-        <h2>Links</h2>
-        <dl class="stats">
-          <dt>github</dt>   <dd><a href="https://github.com/BKBobbyDigital">@BKBobbyDigital</a></dd>
-          <dt>linkedin</dt> <dd><a href="https://www.linkedin.com/in/bobbytumpak">bobbytumpak</a></dd>
-        </dl>
-      </section>
+        <section id="about" class="card">
+          <h2>About</h2>
+          <p>
+            Hi — I'm Bobby. I lead product teams, building software people
+            actually use. Based in Brooklyn, New York.
+          </p>
+        </section>
 
-      <footer class="bottom">
-        <span>© {new Date().getFullYear()} Bobby Tumpak</span>
-        <span>bobbytumpak.com</span>
-      </footer>
+        <section class="card">
+          <h2>Details</h2>
+          <dl class="stats">
+            <dt>name</dt>     <dd>Bobby Tumpak</dd>
+            <dt>location</dt> <dd>Brooklyn, NY</dd>
+            <dt>role</dt>     <dd>Product</dd>
+            <dt>linkedin</dt> <dd><a href="https://www.linkedin.com/in/tumpak/">in/tumpak</a></dd>
+            <dt>github</dt>   <dd><a href="https://github.com/BKBobbyDigital">@BKBobbyDigital</a></dd>
+          </dl>
+        </section>
+
+        <footer class="bottom">
+          <span>© {new Date().getFullYear()} Bobby Tumpak</span>
+          <span>bobbytumpak.com</span>
+        </footer>
+      </main>
     </div>
   </body>
 </html>
