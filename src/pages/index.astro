@@ -18,6 +18,14 @@ const jsonLd = {
     "https://github.com/BKBobbyDigital",
   ],
 };
+
+const projects = [
+  { n: "01", title: "DrFirst", href: "https://drfirst.com", desc: "Medication management software for healthcare" },
+  { n: "02", title: "HotShit", href: "https://hotshit.xyz", desc: "The best food nearby — no menus, just go" },
+  { n: "03", title: "Qart-Hadasht", href: "https://qart-hadasht.org", desc: "Reference encyclopedia of ancient Carthage" },
+  { n: "04", title: "The Rothko Room", href: "https://rothkoweather.com", desc: "A Rothko picked for your weather and light" },
+  { n: "05", title: "Round the Bases", href: "https://playroundthebases.com", desc: "Daily baseball puzzle game" },
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -40,63 +48,92 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap"
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <style>
       :root {
-        --bg: #e8e7dc;
-        --fg: #111;
-        --muted: #4a4a44;
-        --line: #111;
-        --invert-bg: #111;
-        --invert-fg: #e8e7dc;
+        --paper: #efe7d2;
+        --paper-2: #e6dcc0;
+        --ink: #1a1410;
+        --ink-2: #2b231b;
+        --orange: #f15a24;
+        --mustard: #f5c14b;
+        --cream: #f8f2dd;
+        --muted: #5a4e3e;
         --radius: 6px;
+        --shadow-pop: 6px 6px 0 var(--ink);
+        --shadow-pop-sm: 3px 3px 0 var(--ink);
       }
       * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+      html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
       body {
         font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
         font-size: 15px;
         line-height: 1.55;
         min-height: 100vh;
       }
-      a { color: var(--fg); text-underline-offset: 3px; }
+      a { color: var(--ink); text-underline-offset: 3px; }
+
+      .display { font-family: "Archivo Black", "Inter", system-ui, sans-serif; font-weight: 900; letter-spacing: -0.01em; }
+      .micro {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
 
       .layout {
         display: grid;
-        grid-template-columns: 220px 1fr;
+        grid-template-columns: 240px 1fr;
         min-height: 100vh;
-        max-width: 1100px;
+        max-width: 1120px;
         margin: 0 auto;
+        border-left: 2px solid var(--ink);
+        border-right: 2px solid var(--ink);
+        background: var(--paper);
       }
 
       aside.side {
-        border-right: 1px solid var(--line);
-        padding: 1.5rem 0 2rem;
+        border-right: 2px solid var(--ink);
+        padding: 0 0 2rem;
         position: sticky;
         top: 0;
         align-self: start;
         height: 100vh;
         overflow-y: auto;
+        background: var(--paper);
       }
       .brand {
-        font-weight: 700;
-        font-size: 1.05rem;
-        letter-spacing: 0.02em;
-        padding: 0 1.25rem 1.25rem;
-        border-bottom: 1px solid var(--line);
-        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 1rem;
+        padding: 1.1rem 1.25rem;
+        border-bottom: 2px solid var(--ink);
       }
-      .brand::before { content: "◍ "; }
+      .brand .dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: var(--orange);
+        box-shadow: 0 0 0 2px var(--ink) inset;
+        flex: 0 0 10px;
+      }
+      .brand .name { font-family: "Archivo Black", system-ui, sans-serif; letter-spacing: 0.02em; }
+      .brand .name .accent { color: var(--orange); }
 
       nav.side-nav { display: flex; flex-direction: column; }
       .nav-group-label {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.2em;
         color: var(--muted);
         padding: 1rem 1.25rem 0.4rem;
       }
@@ -107,49 +144,112 @@ const jsonLd = {
         gap: 0.5rem;
         padding: 0.55rem 1.25rem;
         text-decoration: none;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         border-left: 3px solid transparent;
       }
-      nav.side-nav a:hover { background: rgba(0,0,0,0.05); }
+      nav.side-nav a:hover { background: var(--paper-2); }
       nav.side-nav a.active {
-        background: var(--invert-bg);
-        color: var(--invert-fg);
+        background: var(--ink);
+        color: var(--paper);
         font-weight: 500;
       }
       nav.side-nav a .arrow { color: var(--muted); font-size: 0.8rem; }
-      nav.side-nav a.active .arrow { color: var(--invert-fg); }
+      nav.side-nav a:hover .arrow { color: var(--orange); }
+      nav.side-nav a.active .arrow { color: var(--orange); }
 
-      main.content {
-        padding: 2rem 2rem 3rem;
-        min-width: 0;
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 0.85rem 2rem;
+        border-bottom: 2px solid var(--ink);
       }
 
-      main.content h1 {
-        margin: 0 0 0.25rem;
-        font-size: 1.75rem;
-        letter-spacing: -0.01em;
+      main.content { min-width: 0; }
+      .content-inner { padding: 2rem 2rem 3rem; }
+
+      .hero { padding-bottom: 1.5rem; border-bottom: 2px solid var(--ink); margin-bottom: 2rem; }
+      .hero .eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+      .hero .eyebrow .live {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--orange);
+        animation: pulse 1.8s ease-in-out infinite;
       }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
+      }
+      h1.title {
+        margin: 0;
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      h1.title .highlight {
+        position: relative;
+        display: inline-block;
+      }
+      h1.title .highlight::before {
+        content: "";
+        position: absolute;
+        inset-inline: -0.1em;
+        top: 0.6em;
+        bottom: 0.05em;
+        background: var(--mustard);
+        z-index: -1;
+      }
+      h1.title .accent { color: var(--orange); }
       .subtitle {
         color: var(--muted);
-        margin: 0 0 1.5rem;
+        margin: 1rem 0 0;
         font-size: 0.95rem;
+        max-width: 38ch;
+      }
+
+      .section { margin-top: 2.5rem; }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: clamp(1.4rem, 3.5vw, 2rem);
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+      .section-head .eyebrow::before { content: "§ "; }
+      .section-head .sub {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding-bottom: 0.25rem;
       }
 
       .card {
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
+        border: 2px solid var(--ink);
+        background: var(--paper);
         padding: 1.25rem 1.25rem 1rem;
         margin-bottom: 1.25rem;
-        background: var(--bg);
+        box-shadow: var(--shadow-pop-sm);
       }
-      .card h2 {
+      .card h3 {
         margin: 0 0 0.75rem;
-        font-size: 1rem;
-        letter-spacing: 0.01em;
+        font-size: 0.85rem;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
         font-weight: 700;
       }
-      .card p { margin: 0 0 0.75rem; }
+      .card p { margin: 0 0 0.5rem; }
       .card p:last-child { margin-bottom: 0; }
 
       dl.stats {
@@ -161,110 +261,103 @@ const jsonLd = {
       }
       dl.stats dt { color: var(--muted); }
       dl.stats dd { margin: 0; }
-      dl.stats dd a { text-decoration: underline; }
-      dl.stats dd a:hover { background: var(--fg); color: var(--bg); text-decoration: none; }
-
-      .section { margin-top: 2rem; }
-      .section-head { margin-bottom: 1rem; }
-      .section-title {
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        font-size: 0.95rem;
-      }
-      .section-sub {
-        color: var(--muted);
-        font-size: 0.9rem;
-        margin-top: 0.1rem;
-      }
+      dl.stats dd a { text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 2px; }
+      dl.stats dd a:hover { background: var(--ink); color: var(--paper); text-decoration: none; }
 
       .grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.85rem;
+        gap: 1rem;
       }
       .tile {
-        display: flex;
-        gap: 0.85rem;
-        align-items: stretch;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        padding: 0.65rem;
-        background: var(--bg);
+        display: block;
+        border: 2px solid var(--ink);
+        background: var(--paper);
+        padding: 1rem 1rem 1.1rem;
         text-decoration: none;
-        color: var(--fg);
-        min-height: 110px;
+        color: var(--ink);
+        box-shadow: var(--shadow-pop-sm);
+        transition: transform 120ms ease, box-shadow 120ms ease;
       }
-      .tile:hover { background: rgba(0,0,0,0.04); }
-      .tile.active {
-        border-width: 2px;
-        padding: calc(0.65rem - 1px);
+      .tile:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: var(--shadow-pop);
       }
-      .tile-thumb {
-        flex: 0 0 96px;
-        background: var(--invert-bg);
-        color: var(--invert-fg);
+      .tile-head {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1.6rem;
-        letter-spacing: 0.05em;
-        border-radius: 4px;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.5rem;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
       }
-      .tile-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 0.15rem;
-        min-width: 0;
+      .tile-num {
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: 2.2rem;
+        line-height: 1;
+        color: var(--orange);
+      }
+      .tile-step {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
       }
       .tile-title {
-        font-weight: 700;
-        font-size: 1rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-family: "Archivo Black", system-ui, sans-serif;
+        font-size: 1.05rem;
+        letter-spacing: 0.01em;
       }
-      .tile-tag { font-weight: 400; }
-      .tile-meta {
-        color: var(--muted);
+      .tile-desc {
+        margin: 0.3rem 0 0;
         font-size: 0.85rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        color: var(--muted);
+        line-height: 1.4;
       }
+      .tile-link {
+        margin-top: 0.6rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
+      .tile-link::after { content: " →"; }
 
       footer.bottom {
-        margin-top: 2rem;
+        margin-top: 2.5rem;
         padding-top: 1rem;
-        border-top: 1px solid var(--line);
+        border-top: 2px solid var(--ink);
         display: flex;
         justify-content: space-between;
         gap: 1rem;
         flex-wrap: wrap;
         color: var(--muted);
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
       }
 
-      @media (max-width: 720px) {
+      @media (max-width: 760px) {
         .layout {
           grid-template-columns: 1fr;
+          border-left: none;
+          border-right: none;
         }
         aside.side {
           position: static;
           height: auto;
           border-right: none;
-          border-bottom: 1px solid var(--line);
+          border-bottom: 2px solid var(--ink);
           padding-bottom: 0.5rem;
         }
-        main.content { padding: 1.5rem 1.25rem 2.5rem; }
-        main.content h1 { font-size: 1.4rem; }
+        .masthead { padding: 0.7rem 1.25rem; font-size: 0.55rem; }
+        .content-inner { padding: 1.5rem 1.25rem 2.5rem; }
         dl.stats { grid-template-columns: 5.5rem 1fr; }
         .grid { grid-template-columns: 1fr; }
-        .tile-thumb { flex-basis: 72px; font-size: 1.3rem; }
-        .tile { min-height: 88px; }
       }
       @media (max-width: 420px) {
+        .masthead .right { display: none; }
         dl.stats { grid-template-columns: 1fr; gap: 0.1rem 0; }
         dl.stats dt { margin-top: 0.5rem; }
       }
@@ -273,7 +366,10 @@ const jsonLd = {
   <body>
     <div class="layout">
       <aside class="side">
-        <div class="brand">Bobby Tumpak</div>
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="name">TUMPAK<span class="accent">.</span></span>
+        </div>
         <nav class="side-nav" aria-label="Primary">
           <div class="nav-group-label">Site</div>
           <a href="#about" class="active">About</a>
@@ -290,77 +386,71 @@ const jsonLd = {
       </aside>
 
       <main class="content">
-        <h1>Bobby Tumpak</h1>
-        <p class="subtitle">Product leader · Brooklyn, NY</p>
+        <div class="masthead">
+          <span class="left">N° 001 / PERSONAL FILE</span>
+          <span class="right">EST. {new Date().getFullYear()} · BROOKLYN, NY · VOL. 01</span>
+        </div>
 
-        <section id="about" class="card">
-          <h2>About</h2>
-          <p>Leading teams that build things that matter.</p>
-        </section>
+        <div class="content-inner">
+          <section class="hero">
+            <div class="eyebrow"><span class="live" aria-hidden="true"></span> ONLINE · BROOKLYN, NY</div>
+            <h1 class="title">
+              BOBBY<br/>
+              <span class="highlight">TUMPAK<span class="accent">.</span></span>
+            </h1>
+            <p class="subtitle">Product leader. Brooklyn, NY.</p>
+          </section>
 
-        <section class="card">
-          <h2>Details</h2>
-          <dl class="stats">
-            <dt>name</dt>     <dd>Bobby Tumpak</dd>
-            <dt>location</dt> <dd>Brooklyn, NY</dd>
-            <dt>linkedin</dt> <dd><a href="https://www.linkedin.com/in/tumpak/">in/tumpak</a></dd>
-            <dt>github</dt>   <dd><a href="https://github.com/BKBobbyDigital">@BKBobbyDigital</a></dd>
-          </dl>
-        </section>
-
-        <section id="projects" class="section">
-          <div class="section-head">
-            <div class="section-title">PROJECTS</div>
-            <div class="section-sub">Things I'm working on</div>
-          </div>
-
-          <div class="grid">
-            <a class="tile active" href="https://drfirst.com" target="_blank" rel="noopener">
-              <div class="tile-thumb">DR</div>
-              <div class="tile-body">
-                <div class="tile-title">DrFirst <span class="tile-tag">⌬</span></div>
-                <div class="tile-meta">Medication management software for healthcare</div>
+          <section id="about" class="section">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">About</div>
+                <h2>WHAT I DO.</h2>
               </div>
-            </a>
+            </div>
+            <div class="card">
+              <p>Leading teams that build things that matter.</p>
+            </div>
+            <div class="card">
+              <h3>Details</h3>
+              <dl class="stats">
+                <dt>name</dt>     <dd>Bobby Tumpak</dd>
+                <dt>location</dt> <dd>Brooklyn, NY</dd>
+                <dt>linkedin</dt> <dd><a href="https://www.linkedin.com/in/tumpak/">in/tumpak</a></dd>
+                <dt>github</dt>   <dd><a href="https://github.com/BKBobbyDigital">@BKBobbyDigital</a></dd>
+              </dl>
+            </div>
+          </section>
 
-            <a class="tile" href="https://hotshit.xyz" target="_blank" rel="noopener">
-              <div class="tile-thumb">HS</div>
-              <div class="tile-body">
-                <div class="tile-title">HotShit <span class="tile-tag">♨</span></div>
-                <div class="tile-meta">The best food nearby — no menus, just go</div>
+          <section id="projects" class="section">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Projects</div>
+                <h2>THINGS I'M<br/>WORKING ON.</h2>
               </div>
-            </a>
+              <div class="sub">FIVE TILES · UPDATED OFTEN</div>
+            </div>
 
-            <a class="tile" href="https://qart-hadasht.org" target="_blank" rel="noopener">
-              <div class="tile-thumb">QH</div>
-              <div class="tile-body">
-                <div class="tile-title">Qart-Hadasht <span class="tile-tag">▲</span></div>
-                <div class="tile-meta">Reference encyclopedia of ancient Carthage</div>
-              </div>
-            </a>
+            <div class="grid">
+              {projects.map((p) => (
+                <a class="tile" href={p.href} target="_blank" rel="noopener">
+                  <div class="tile-head">
+                    <span class="tile-num">{p.n}</span>
+                    <span class="tile-step">Project</span>
+                  </div>
+                  <div class="tile-title">{p.title}</div>
+                  <p class="tile-desc">{p.desc}</p>
+                  <div class="tile-link">Visit</div>
+                </a>
+              ))}
+            </div>
+          </section>
 
-            <a class="tile" href="https://rothkoweather.com" target="_blank" rel="noopener">
-              <div class="tile-thumb">RR</div>
-              <div class="tile-body">
-                <div class="tile-title">The Rothko Room <span class="tile-tag">◧</span></div>
-                <div class="tile-meta">A Rothko picked for your weather and light</div>
-              </div>
-            </a>
-
-            <a class="tile" href="https://playroundthebases.com" target="_blank" rel="noopener">
-              <div class="tile-thumb">RB</div>
-              <div class="tile-body">
-                <div class="tile-title">Round the Bases <span class="tile-tag">⚾</span></div>
-                <div class="tile-meta">Daily baseball puzzle game</div>
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <footer class="bottom">
-          <span>© {new Date().getFullYear()} Bobby Tumpak</span>
-          <span>bobbytumpak.com</span>
-        </footer>
+          <footer class="bottom">
+            <span>© {new Date().getFullYear()} BOBBY TUMPAK</span>
+            <span>BOBBYTUMPAK.COM</span>
+          </footer>
+        </div>
       </main>
     </div>
   </body>
