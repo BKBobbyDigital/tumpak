@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinstripes & Ivy — Tumpak Family Trip</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f5f0e8;
+    --cream: #ede8db;
+    --red: #c0392b;
+    --gold: #b8973a;
+    --muted: #6b6560;
+    --rule: #d4cfc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 52px 52px 40px;
+    border-bottom: 4px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .masthead::before {
+    content: 'CHICAGO';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 170px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: -4px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .trip-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .trip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .trip-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .trip-meta {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.5);
+    line-height: 2.1;
+    letter-spacing: 1px;
+  }
+
+  .flights-strip {
+    display: flex;
+    gap: 36px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .flight-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .flight-badge {
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .flight-detail {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.7;
+  }
+
+  .flight-detail strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  /* ── DAYS ── */
+  .days-container {
+    padding: 0 52px 72px;
+  }
+
+  .day-block {
+    border-bottom: 1px solid var(--rule);
+    padding: 44px 0;
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 44px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .day-block:nth-child(1) { animation-delay: 0.05s; }
+  .day-block:nth-child(2) { animation-delay: 0.1s; }
+  .day-block:nth-child(3) { animation-delay: 0.15s; }
+  .day-block:nth-child(4) { animation-delay: 0.2s; }
+  .day-block:nth-child(5) { animation-delay: 0.25s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-label { padding-top: 4px; }
+
+  .day-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    color: var(--cream);
+  }
+
+  .day-weekday {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 10px;
+    display: block;
+  }
+
+  .day-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .day-theme {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 14px;
+    display: block;
+    line-height: 1.4;
+    max-width: 150px;
+  }
+
+  .day-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ── CONFIRMED INDICATOR ── */
+  .entry-time-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 3px;
+  }
+
+  .confirmed-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #2a6a2a;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .confirmed-badge::before {
+    content: '✓';
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  /* ── ENTRIES ── */
+  .entry {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 18px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .entry:last-child { border-bottom: none; }
+
+  .entry-time {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    padding-top: 3px;
+    white-space: nowrap;
+  }
+
+  .entry-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .entry-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-bottom: 2px;
+  }
+
+  /* Light, readable tag palette — no dark backgrounds */
+  .tag-flight   { background: #dceef7; color: #2a6a8a; border: 1px solid #b0d4e8; }
+  .tag-game     { background: #fdf3dc; color: #8a6010; border: 1px solid #e8d090; }
+  .tag-food     { background: #fae8e0; color: #8a3a1a; border: 1px solid #e8b090; }
+  .tag-art      { background: #e4f0e4; color: #2a6a2a; border: 1px solid #a0cc a0; }
+  .tag-activity { background: #f0e4f0; color: #6a2a6a; border: 1px solid #cca0cc; }
+  .tag-hotel    { background: #f0ede0; color: #6a5a10; border: 1px solid #ccbc70; }
+  .tag-music    { background: #e4e4f8; color: #2a2a8a; border: 1px solid #a0a0dc; }
+  .tag-beach    { background: #e0f0f0; color: #1a6060; border: 1px solid #80c0c0; }
+
+  .entry-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .entry-address {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .entry-note {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 2px;
+    font-weight: 300;
+  }
+
+  /* ── ANCHOR GAME ENTRIES — no box ── */
+  .entry.anchor {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+    margin: 0;
+  }
+
+  /* ── JAZZ HIGHLIGHT — no box ── */
+  .entry.highlight {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+    margin: 0;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    padding: 36px 52px;
+  }
+
+  .checklist-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
+  }
+
+  .checklist-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .checklist-item .box { color: var(--red); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: var(--muted);
+    padding: 26px 52px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid var(--gold);
+  }
+
+  .footer span { color: var(--gold); }
+
+  @media (max-width: 700px) {
+    .masthead, .days-container, .checklist, .footer { padding-left: 24px; padding-right: 24px; }
+    .day-block { grid-template-columns: 1fr; gap: 14px; }
+    .trip-title { font-size: 40px; }
+    .masthead-top { flex-direction: column; gap: 18px; }
+    .trip-meta { text-align: left; }
+    .flights-strip { flex-direction: column; gap: 18px; }
+    .day-number { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ MASTHEAD ══ -->
+<div class="masthead">
+  <div class="masthead-top">
+    <div>
+      <div class="trip-label">Tumpak Family Trip · Summer 2025</div>
+      <div class="trip-title"><em>Pinstripes</em><br>& Ivy</div>
+    </div>
+    <div class="trip-meta">
+      <div>JUL 29 — AUG 2</div>
+      <div>4 NIGHTS</div>
+      <div>LGA ↔ ORD</div>
+      <div>DELTA</div>
+    </div>
+  </div>
+  <div class="flights-strip">
+    <div class="flight-item">
+      <div class="flight-badge">Outbound</div>
+      <div class="flight-detail">
+        <strong>DL 2226</strong> · Wed Jul 29<br>
+        LGA 2:30PM → ORD 4:15PM
+      </div>
+    </div>
+    <div class="flight-item">
+      <div class="flight-badge">Return</div>
+      <div class="flight-detail">
+        <strong>DL 2985</strong> · Sun Aug 2<br>
+        ORD 12:15PM → LGA 3:35PM
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="days-container">
+
+  <!-- ══ DAY 1 — WEDNESDAY ══ -->
+  <div class="day-block">
+    <div class="day-label">
+      <div class="day-number">29</div>
+      <span class="day-weekday">Wednesday</span>
+      <span class="day-date">July</span>
+      <span class="day-theme">Arrive & settle in</span>
+    </div>
+    <div class="day-content">
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">2:30 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-flight">Flight</div>
+          <div class="entry-title">Depart LGA — Delta 2226</div>
+          <div class="entry-address">LaGuardia Airport, Queens, NY</div>
+          <div class="entry-note">Arrive O'Hare 4:15PM · Uber to apartment ~40 min</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">5:30 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-hotel">Arrive</div>
+          <div class="entry-title">Home Base</div>
+          <div class="entry-address">2 West Delaware Place, Gold Coast</div>
+          <div class="entry-note">Drop bags, freshen up. Gold Coast location — walkable to the lakefront, Lincoln Park, and a short ride to everything else.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">7:30 PM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-food">Dinner</div>
+          <div class="entry-title">The Publican</div>
+          <div class="entry-address">215 N Morgan St, West Loop</div>
+          <div class="entry-note">One of the great Chicago rooms — beer hall energy, pork and oysters, Paul Kahan's place. Perfect arrival-night dinner. No reservations needed.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DAY 2 — THURSDAY ══ -->
+  <div class="day-block">
+    <div class="day-label">
+      <div class="day-number">30</div>
+      <span class="day-weekday">Thursday</span>
+      <span class="day-date">July</span>
+      <span class="day-theme">Field Museum, Sox, art & Girl & the Goat</span>
+    </div>
+    <div class="day-content">
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">9:00 AM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-art">Museum</div>
+          <div class="entry-title">Field Museum + Pokémon Fossil Exhibition</div>
+          <div class="entry-address">1400 S Lake Shore Dr, Museum Campus</div>
+          <div class="entry-note">Sue the T-Rex, Egyptian mummies, underground gem exhibit — plus the special Pokémon fossil exhibition. Felix will be in his element. Budget 2.5 hours. Book in advance.</div>
+        </div>
+      </div>
+
+      <div class="entry anchor">
+        <div class="entry-time-wrap">
+          <div class="entry-time">11:20 AM<br><span style="font-size:10px; opacity:0.7;">1:10 First Pitch</span></div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-game">⚾ Game 1</div>
+          <div class="entry-title">Yankees @ White Sox</div>
+          <div class="entry-address">Guaranteed Rate Field · Scout Seats</div>
+          <div class="entry-note">Arrive early for BP — with Scout Seats you get early entry and the players are literally feet away. Felix will be face-to-face with the Yankees before the first pitch. Buffet on arrival. Red Line south from the Loop.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">Post-Game</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-art">Museum</div>
+          <div class="entry-title">Art Institute of Chicago</div>
+          <div class="entry-address">111 S Michigan Ave, The Loop</div>
+          <div class="entry-note">A wind-down that actually delivers — Nighthawks, Seurat's Sunday on La Grande Jatte, the Thorne Miniature Rooms (Felix will be transfixed). Pick two or three wings and move at your own pace.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">Early Eve</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-activity">Evening Stroll</div>
+          <div class="entry-title">Millennium Park + Cloud Gate</div>
+          <div class="entry-address">201 E Randolph St — steps from the Art Institute</div>
+          <div class="entry-note">The Bean at dusk with the skyline behind it. Felix can splash in the Crown Fountain jets on the way out.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">7:00 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-food">Dinner</div>
+          <div class="entry-title">Girl & the Goat</div>
+          <div class="entry-address">800 W Randolph St, West Loop</div>
+          <div class="entry-note">Stephanie Izard's flagship. Bold, shared plates, always buzzing — roasted pig face, wood-fired everything, genuinely great for a family with range. One of Chicago's most reliable big-night rooms.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DAY 3 — FRIDAY ══ -->
+  <div class="day-block">
+    <div class="day-label">
+      <div class="day-number">31</div>
+      <span class="day-weekday">Friday</span>
+      <span class="day-date">July</span>
+      <span class="day-theme">Cubs, jazz & a night out</span>
+    </div>
+    <div class="day-content">
+
+      <div class="entry anchor">
+        <div class="entry-time-wrap">
+          <div class="entry-time">1:20 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-game">⚾ Game 2</div>
+          <div class="entry-title">Yankees @ Cubs</div>
+          <div class="entry-address">Wrigley Field · Section 124, Row 13</div>
+          <div class="entry-note">Third base line, field level, shaded by mid-game. Red Line north to Addison. Ivy wall, manual scoreboard, Wrigleyville rooftops — the whole picture. Felix gets two completely different ballpark experiences in 24 hours.</div>
+        </div>
+      </div>
+
+      <div class="entry highlight">
+        <div class="entry-time-wrap">
+          <div class="entry-time">5:30 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-music">🍸 Parents Night Out</div>
+          <div class="entry-title">Andy's Jazz Club</div>
+          <div class="entry-address">11 E Hubbard St, River North</div>
+          <div class="entry-note">Arrive 5:30, show starts 6PM, done by 7:30. Chicago institution since 1951 — real musicians, unpretentious room, great sightlines. Felix stays back at Delaware Place — this is the start of your night out. Straight to Rose Mary after.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">8:30 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-food">Dinner</div>
+          <div class="entry-title">Rose Mary</div>
+          <div class="entry-address">1154 W Fulton Market</div>
+          <div class="entry-note">Top Chef winner. Italian-Croatian food in a beautiful light-filled space. One of the best restaurants in Chicago right now.</div>
+        </div>
+      </div>
+
+      <div class="entry highlight">
+        <div class="entry-time">Late Night</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-music">🍸 Parents Night Out</div>
+          <div class="entry-title">Gilt Bar</div>
+          <div class="entry-address">230 W Kinzie St — 4 min walk from Rose Mary</div>
+          <div class="entry-note">Subterranean, candlelit, serious cocktails — the kind of room you close down. Your night.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DAY 4 — SATURDAY ══ -->
+  <div class="day-block">
+    <div class="day-label">
+      <div class="day-number">01</div>
+      <span class="day-weekday">Saturday</span>
+      <span class="day-date">August</span>
+      <span class="day-theme">Hyde Park, MSI, beach & sunset cruise</span>
+    </div>
+    <div class="day-content">
+
+      <div class="entry">
+        <div class="entry-time">9:00 AM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-food">Breakfast</div>
+          <div class="entry-title">Breakfast at the Apartment</div>
+          <div class="entry-address">2 West Delaware Place</div>
+          <div class="entry-note">Home base start before a big Museum Campus day. Gold Coast is well-stocked — grab something from a nearby bakery or eat in before heading to the lakefront.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">10:00 AM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-activity">Morning</div>
+          <div class="entry-title">Obama Presidential Center</div>
+          <div class="entry-address">5200 S Drexel Ave, Jackson Park</div>
+          <div class="entry-note">A short walk around the grounds — striking architecture by Tod Williams Billie Tsien in the middle of Jackson Park. Worth seeing from the outside even if you don't go in. Good intro to Hyde Park before heading to MSI.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">11:00 AM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-art">Museum</div>
+          <div class="entry-title">Griffin Museum of Science and Industry</div>
+          <div class="entry-address">5700 S Lake Shore Dr, Hyde Park</div>
+          <div class="entry-note">One of the best science museums in the world — U-505 submarine, Coal Mine, Space Center, weather experiments. Felix will want to stay all day. Budget 2 hours and be disciplined about it.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">2:30 PM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-beach">🏖 Beach</div>
+          <div class="entry-title">57th Street Beach</div>
+          <div class="entry-address">5700 S Lake Shore Dr, Hyde Park</div>
+          <div class="entry-note">Steps from MSI, right on Lake Michigan. Felix can run it off while you decompress — then grab lunch nearby in Hyde Park before heading north for the party.</div>
+        </div>
+      </div>
+
+      <div class="entry anchor">
+        <div class="entry-time-wrap">
+          <div class="entry-time">4:00 – 5:15 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-activity">🎂 Party</div>
+          <div class="entry-title">Holly's 2nd Birthday</div>
+          <div class="entry-address">1862 N Hoyne Ave, Bucktown</div>
+          <div class="entry-note">Felix gets a Chicago playdate while you get a couple hours in the neighborhood. Leave by 5:15 to make the boat — Uber to the dock is ~15 min.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time-wrap">
+          <div class="entry-time">6:00 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-activity">Cruise</div>
+          <div class="entry-title">First Lady Sightseeing River & Lake Cruise</div>
+          <div class="entry-address">112 E. Wacker Dr, River North</div>
+          <div class="entry-note">Boards 5:45 — be there by 5:30. 90 min on the Chicago River and out onto Lake Michigan at golden hour — the perfect way to recap the whole trip. Goes through the Harbor Lock connecting river to lake. Full bar on board, open upper deck. Done by 7:30 and straight to Bavette's.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">8:00 PM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-food">Dinner</div>
+          <div class="entry-title">Bavette's Bar & Boeuf</div>
+          <div class="entry-address">218 W Kinzie St, River North</div>
+          <div class="entry-note">Dark, moody, jazz on the sound system — one of the best rooms in Chicago. French brasserie soul with a serious steakhouse backbone. Bone-in ribeye, great wine list. Final dinner — this is the one.</div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <!-- ══ DAY 5 — SUNDAY ══ -->
+  <div class="day-block">
+    <div class="day-label">
+      <div class="day-number">02</div>
+      <span class="day-weekday">Sunday</span>
+      <span class="day-date">August</span>
+      <span class="day-theme">Home</span>
+    </div>
+    <div class="day-content">
+
+      <div class="entry">
+        <div class="entry-time">8:00 AM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-food">Breakfast</div>
+          <div class="entry-title">Breakfast at the Apartment</div>
+          <div class="entry-address">2 West Delaware Place</div>
+          <div class="entry-note">Keep it simple. Early start needed — don't cut it close with O'Hare.</div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-time">9:30 AM</div>
+        <div class="entry-body">
+          <div class="entry-tag tag-hotel">Depart</div>
+          <div class="entry-title">2 West Delaware Place → O'Hare</div>
+          <div class="entry-address">Gold Coast → ORD</div>
+          <div class="entry-note">Leave by 9:30AM latest. Uber ~40 min from Gold Coast. O'Hare is O'Hare — give yourself time.</div>
+        </div>
+      </div>
+
+      <div class="entry anchor">
+        <div class="entry-time-wrap">
+          <div class="entry-time">12:15 PM</div>
+          <div class="confirmed-badge">Confirmed</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-tag tag-flight">Flight</div>
+          <div class="entry-title">Depart ORD — Delta 2985</div>
+          <div class="entry-address">O'Hare International Airport</div>
+          <div class="entry-note">Arrive LGA 3:35PM</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ MAP ══ -->
+<div class="checklist" style="border-top: 1px solid var(--rule);">
+  <div class="checklist-label">Trip Map</div>
+  <div id="map" style="height: 500px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule);"></div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  const map = L.map('map').setView([41.878, -87.635], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  const colors = {
+    home:     '#b8973a',
+    game:     '#c0392b',
+    food:     '#2a6a8a',
+    activity: '#6a2a6a',
+    music:    '#2a2a8a',
+    museum:   '#2a6a2a',
+    beach:    '#1a6060',
+    party:    '#c0392b',
+  };
+
+  function pin(color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:13px;height:13px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.35);"></div>`,
+      iconSize: [13, 13],
+      iconAnchor: [6, 6],
+    });
+  }
+
+  const places = [
+    { lat: 41.9033, lng: -87.6266, label: '🏠 Home Base', note: '2 West Delaware Pl, Gold Coast', color: colors.home },
+    { lat: 41.8300, lng: -87.6338, label: '⚾ Game 1 — Sox', note: 'Guaranteed Rate Field', color: colors.game },
+    { lat: 41.9484, lng: -87.6556, label: '⚾ Game 2 — Cubs', note: 'Wrigley Field', color: colors.game },
+    { lat: 41.8868, lng: -87.6491, label: '🍽 The Publican', note: '837 W Fulton Market', color: colors.food },
+    { lat: 41.8936, lng: -87.6368, label: '🥩 Mr. Beef', note: '666 N Orleans St', color: colors.food },
+    { lat: 41.8862, lng: -87.6605, label: '🍽 Rose Mary', note: '1154 W Fulton Market', color: colors.food },
+    { lat: 41.8883, lng: -87.6363, label: '🥩 Bavette\'s', note: '218 W Kinzie St', color: colors.food },
+    { lat: 41.8884, lng: -87.6275, label: '🎷 Andy\'s Jazz Club', note: '11 E Hubbard St', color: colors.music },
+    { lat: 41.8884, lng: -87.6356, label: '🍸 Gilt Bar', note: '230 W Kinzie St', color: colors.music },
+    { lat: 41.8796, lng: -87.6237, label: '🎨 Art Institute', note: '111 S Michigan Ave', color: colors.museum },
+    { lat: 41.7947, lng: -87.6052, label: '🏛 Obama Presidential Center', note: '5200 S Drexel Ave, Hyde Park', color: colors.activity },
+    { lat: 41.7908, lng: -87.5830, label: '🔬 Museum of Science & Industry', note: '5700 S Lake Shore Dr', color: colors.museum },
+    { lat: 41.7917, lng: -87.5786, label: '🏖 57th Street Beach', note: 'Hyde Park', color: colors.beach },
+    { lat: 41.8664, lng: -87.6170, label: '🦕 Field Museum', note: '1400 S Lake Shore Dr', color: colors.museum },
+    { lat: 41.9126, lng: -87.6779, label: '🎂 Holly\'s Party', note: '1862 N Hoyne Ave, Bucktown', color: colors.party },
+
+    { lat: 41.8827, lng: -87.6233, label: '☁️ Millennium Park', note: 'Cloud Gate / Crown Fountain', color: colors.activity },
+    { lat: 41.8882, lng: -87.6534, label: '🍺 The Publican', note: '215 N Morgan St', color: colors.food },
+    { lat: 41.8840, lng: -87.6488, label: '🐐 Girl & the Goat', note: '800 W Randolph St', color: colors.food },
+    { lat: 41.8882, lng: -87.6220, label: '⛵ First Lady Cruise', note: '112 E. Wacker Dr', color: colors.activity },
+  ];
+
+  places.forEach(p => {
+    L.marker([p.lat, p.lng], { icon: pin(p.color) })
+      .addTo(map)
+      .bindPopup(`<strong style="font-family:sans-serif;font-size:13px;">${p.label}</strong><br><span style="font-family:sans-serif;font-size:11px;color:#666;">${p.note}</span>`);
+  });
+</script>
+
+
+<div class="footer">
+  <div>PINSTRIPES & IVY · CHICAGO · JUL 29 – AUG 2, 2025</div>
+  <div>DELTA · <span>⚾ 2 GAMES</span> · 🎷 ANDY'S · 🏖 12TH ST BEACH</div>
+</div>
+
+</body>
+</html>
