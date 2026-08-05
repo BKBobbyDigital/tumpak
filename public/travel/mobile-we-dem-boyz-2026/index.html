@@ -68,6 +68,13 @@
     font-weight:700;letter-spacing:.42em;text-transform:uppercase;
     font-size:16px;color:var(--gold-hot);margin-bottom:10px;
   }
+  .countdown{
+    display:inline-block;margin:0 auto 18px;padding:7px 18px;border-radius:999px;
+    border:2px solid var(--gold);background:rgba(242,183,5,.12);
+    font-family:"Anton",sans-serif;text-transform:uppercase;letter-spacing:.14em;
+    font-size:14px;color:var(--cream);line-height:1;
+  }
+  .countdown b{color:var(--gold-hot);font-size:18px;letter-spacing:.04em}
   .tag{
     font-family:"Anton",sans-serif;text-transform:uppercase;line-height:.86;
     letter-spacing:.01em;
@@ -241,6 +248,8 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero wrap">
+
+  <div class="countdown" id="cd">&#9992; &#8734; DAYS TO MOBILE</div>
 
   <p class="eyebrow">Nov 12 – 15, 2026 · Port City · Alabama</p>
   <h1 class="tag">We Dem Boyz</h1>
@@ -417,5 +426,26 @@
   <p class="fine">We Dem Boyz · Mobile '26 · Poppy · Snipes · Tump</p>
 </footer>
 
+<script>
+(function(){
+  var el = document.getElementById('cd');
+  if(!el) return;
+  function update(){
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var trip = new Date(2026, 10, 12); // Nov 12, 2026 (month is 0-indexed)
+    var diff = Math.round((trip - today) / 86400000);
+    var out;
+    if(diff > 1){ out = '&#9992; <b>' + diff + '</b> DAYS TO MOBILE'; }
+    else if(diff === 1){ out = '&#9992; <b>1</b> DAY TO MOBILE'; }
+    else if(diff === 0){ out = "&#9992; IT'S GO TIME"; }
+    else if(diff >= -3){ out = '&#9992; WE DEM BOYZ'; }   // during the trip
+    else { out = "THAT'S A WRAP &#9992;"; }
+    el.innerHTML = out;
+  }
+  update();
+  setInterval(update, 3600000); // re-check hourly so it rolls over at midnight
+})();
+</script>
 </body>
 </html>
