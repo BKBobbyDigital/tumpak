@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /travel/
+Disallow: /nostalgia/
 
 Sitemap: https://bobbytumpak.com/sitemap.xml
