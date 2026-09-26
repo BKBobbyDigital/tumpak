@@ -11,7 +11,7 @@
   :root {
     --ink: #12161F;
     --bottle: #1C2B27;
-    --brass: #E8622B;
+    --brass: #FD5824;
     --wine: #9C3018;
     --ivory: #F8F4E9;
     --charcoal: #23211D;
@@ -23,9 +23,9 @@
     --rule: #D8CFB8;
     --card-bg: #FBF9F3;
     --accent: var(--brass);
-    --accent-deep: #C24A1D;
-    --confirmed: #4B6A52;
-    --proposed: #C24A1D;
+    --accent-deep: #CA4116;
+    --confirmed: #CA4116;
+    --proposed: #40635A;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -36,8 +36,8 @@
       --text-dim: #9B9788;
       --rule: #303A42;
       --card-bg: #171C26;
-      --confirmed: #7FAE8A;
-      --proposed: var(--brass);
+      --confirmed: var(--brass);
+      --proposed: #7FAE8A;
     }
   }
 
@@ -48,8 +48,8 @@
     --text-dim: #9B9788;
     --rule: #303A42;
     --card-bg: #171C26;
-    --confirmed: #7FAE8A;
-    --proposed: var(--brass);
+    --confirmed: var(--brass);
+    --proposed: #7FAE8A;
   }
 
   * { box-sizing: border-box; }
@@ -171,7 +171,7 @@
   }
 
   .day-rule::after {
-    content: '❧';
+    content: '⚜';
     position: absolute;
     left: 50%;
     top: 50%;
@@ -179,7 +179,7 @@
     background: var(--bg);
     color: var(--accent-deep);
     padding: 0 0.7rem;
-    font-size: 1rem;
+    font-size: 1.15rem;
     opacity: 0.9;
   }
 
