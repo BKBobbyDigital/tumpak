@@ -6,7 +6,7 @@
 <title>Paris — Birthday Weekend</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #12161F;
@@ -59,16 +59,20 @@
     background: var(--bg);
     background-image: radial-gradient(ellipse at top, var(--bg-alt) 0%, var(--bg) 65%);
     color: var(--text);
-    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     transition: background 0.2s ease, color 0.2s ease;
     padding: 1.4rem;
   }
 
+  html {
+    font-size: 106%;
+  }
+
   .wrap {
-    max-width: 720px;
+    max-width: 860px;
     margin: 0 auto;
-    padding: 3.6rem 2.4rem 5rem;
+    padding: 3.8rem 3.2rem 5.2rem;
     border: 1px solid var(--accent-deep);
     outline: 5px double var(--accent-deep);
     outline-offset: -9px;
@@ -102,11 +106,12 @@
     margin: 0 0 0.4rem;
   }
 
-  .fleur-top {
-    font-size: 2.4rem;
+  .eiffel-icon {
+    width: 68px;
+    height: auto;
     color: var(--accent-deep);
-    margin: 0 0 0.6rem;
-    opacity: 0.85;
+    margin: 0 0 0.8rem;
+    opacity: 0.9;
   }
 
   .hero .eyebrow .flourish {
@@ -200,19 +205,19 @@
 
   .stop {
     display: grid;
-    grid-template-columns: 84px 1fr;
-    gap: 1rem;
-    padding: 1rem 0;
+    grid-template-columns: 92px 1fr;
+    gap: 1.2rem;
+    padding: 1.15rem 0;
     border-bottom: 1px solid var(--rule);
   }
 
   .stop:last-child { border-bottom: none; }
 
   .stop .time {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     color: var(--text-dim);
     padding-top: 0.2rem;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .stop .content { min-width: 0; }
@@ -241,17 +246,17 @@
   .stop .name {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: 1.18rem;
+    font-size: 1.26rem;
     margin: 0;
   }
 
   .stop.headline .name {
-    font-size: 1.34rem;
+    font-size: 1.42rem;
     color: var(--wine);
   }
 
   .status-label {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.02em;
     color: var(--text-dim);
   }
@@ -260,11 +265,11 @@
   .status-label.proposed { color: var(--proposed); }
 
   .stop .blurb {
-    font-size: 0.92rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.62;
     color: var(--text-dim);
-    margin: 0.3rem 0 0;
-    max-width: 62ch;
+    margin: 0.35rem 0 0;
+    max-width: 64ch;
   }
 
   .dessert-tag {
@@ -290,9 +295,14 @@
 
   .footnote strong { color: var(--text); font-weight: 500; }
 
+  @media (max-width: 700px) {
+    .wrap { padding: 3rem 1.8rem 4.2rem; outline-offset: -7px; }
+  }
+
   @media (max-width: 480px) {
-    .stop { grid-template-columns: 64px 1fr; gap: 0.7rem; }
-    .wrap { padding: 3rem 1.1rem 4rem; }
+    .stop { grid-template-columns: 68px 1fr; gap: 0.8rem; }
+    .wrap { padding: 2.6rem 1.2rem 3.6rem; outline: 3px double var(--accent-deep); outline-offset: -6px; }
+    .wrap::before, .wrap::after { font-size: 1.4rem; top: 10px; }
   }
 </style>
 </head>
@@ -300,7 +310,18 @@
 <div class="wrap">
 
   <header class="hero">
-    <p class="fleur-top">⚜</p>
+    <svg class="eiffel-icon" viewBox="0 0 140 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="68" y="8" width="4" height="27" fill="currentColor"/>
+      <polygon points="66,35 74,35 82,95 58,95" fill="currentColor"/>
+      <rect x="55" y="92" width="30" height="6" fill="currentColor"/>
+      <polygon points="58,98 82,98 92,150 48,150" fill="currentColor"/>
+      <rect x="45" y="147" width="50" height="7" fill="currentColor"/>
+      <polygon points="14,192 34,192 46,154 38,154" fill="currentColor"/>
+      <polygon points="126,192 106,192 94,154 102,154" fill="currentColor"/>
+      <line x1="48" y1="150" x2="92" y2="98" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+      <line x1="92" y1="150" x2="48" y2="98" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+      <line x1="10" y1="192" x2="130" y2="192" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+    </svg>
     <p class="eyebrow"><span class="flourish">❦</span>Marcie's Birthday<span class="flourish">❦</span></p>
     <h1>Paris</h1>
     <p class="dates">Thursday, October 8 — Monday, October 12, 2026</p>
