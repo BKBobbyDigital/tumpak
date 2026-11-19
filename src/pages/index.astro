@@ -116,7 +116,7 @@ const jsonLd = {
         margin: 0;
         font-weight: 900;
         text-align: center;
-        font-size: clamp(1.5rem, 4.8vw, 2.6rem);
+        font-size: clamp(1.75rem, 5.2vw, 2.7rem);
         line-height: 1;
         letter-spacing: 0.005em;
       }
@@ -124,7 +124,7 @@ const jsonLd = {
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.3em;
-        font-size: clamp(0.8rem, 1.9vw, 1rem);
+        font-size: clamp(1.05rem, 3vw, 1.4rem);
         padding-left: 0.3em;
       }
       .card-footer {
@@ -134,11 +134,16 @@ const jsonLd = {
         gap: 1rem;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-size: clamp(0.7rem, 1.55vw, 0.85rem);
+        letter-spacing: 0.12em;
+        font-size: clamp(0.85rem, 2.3vw, 1.1rem);
       }
       @media (max-width: 500px) {
-        .card-biz { aspect-ratio: 1.65 / 1; padding: 1rem 1.1rem; }
+        .card-biz { aspect-ratio: 1.6 / 1; padding: 1.1rem 1.1rem 1rem; }
+        .card-footer { letter-spacing: 0.08em; }
+      }
+      @media (max-width: 360px) {
+        .card-footer { font-size: 0.78rem; letter-spacing: 0.05em; }
+        .card-title { letter-spacing: 0.22em; }
       }
 
       .linkedin {
